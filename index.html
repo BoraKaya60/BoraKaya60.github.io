@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bora Kaya | Web Developer & Tech Enthusiast</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            accent: '#8b5cf6',
+                            emerald: '#10b981'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366f1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 dark:bg-slate-950 dark:text-slate-100 light:bg-slate-50 light:text-slate-900 transition-colors duration-300">
+
+    <!-- Navbar Header -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-md bg-slate-950/80 dark:bg-slate-950/80 light:bg-white/80 border-b border-slate-800/50 dark:border-slate-800/50 light:border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#hero" class="flex items-center space-x-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-transform duration-300">
+                    BK
+                </div>
+                <span class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                    BoraKaya60
+                </span>
+            </a>
+
+            <!-- Desktop Menu Nav -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#about" class="hover:text-indigo-400 transition-colors">Hakkımda</a>
+                <a href="#skills" class="hover:text-indigo-400 transition-colors">Yetenekler</a>
+                <a href="#projects" class="hover:text-indigo-400 transition-colors">Projeler</a>
+                <a href="#contact" class="hover:text-indigo-400 transition-colors">İletişim</a>
+            </nav>
+
+            <!-- Action Controls & Dark Mode Toggle -->
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" aria-label="Tema Değiştir" class="p-2.5 rounded-xl bg-slate-900 dark:bg-slate-900 light:bg-slate-100 border border-slate-800 dark:border-slate-800 light:border-slate-300 hover:border-indigo-500 transition-all text-yellow-400 dark:text-yellow-400 light:text-slate-700">
+                    <i id="theme-toggle-dark-icon" class="fa-solid fa-moon text-lg hidden"></i>
+                    <i id="theme-toggle-light-icon" class="fa-solid fa-sun text-lg"></i>
+                </button>
+
+                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-lg shadow-indigo-500/25 transition-all hover:scale-105">
+                    İletişime Geç
+                </a>
+
+                <!-- Mobile menu toggle button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Nav Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 dark:bg-slate-900/95 light:bg-white/95 border-b border-slate-800 dark:border-slate-800 light:border-slate-200 px-4 pt-3 pb-6 space-y-3">
+            <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-slate-800 dark:hover:bg-slate-800 light:hover:bg-slate-100">Hakkımda</a>
+            <a href="#skills" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-slate-800 dark:hover:bg-slate-800 light:hover:bg-slate-100">Yetenekler</a>
+            <a href="#projects" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-slate-800 dark:hover:bg-slate-800 light:hover:bg-slate-100">Projeler</a>
+            <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-md hover:bg-slate-800 dark:hover:bg-slate-800 light:hover:bg-slate-100">İletişim</a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+            <!-- Background Glow Effects -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-indigo-600/30 to-purple-600/30 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+            <div class="absolute bottom-10 right-10 w-72 h-72 bg-blue-500/20 rounded-full blur-[90px] -z-10 pointer-events-none"></div>
+
+            <div class="max-w-5xl mx-auto text-center relative z-10">
+                <!-- Status Badge -->
+                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-card mb-8 border border-slate-700/50 shadow-inner">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-xs font-semibold tracking-wide uppercase text-slate-300 dark:text-slate-300 light:text-slate-700">Yeni Projelere Açık</span>
+                </div>
+
+                <!-- Main Greeting -->
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6">
+                    Merhaba, Ben <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Bora Kaya</span>
+                </h1>
+
+                <!-- Dynamic Animated Typing Text -->
+                <div class="text-xl sm:text-2xl md:text-3xl font-medium text-slate-400 dark:text-slate-400 light:text-slate-600 h-12 flex items-center justify-center space-x-2">
+                    <span>Ben bir</span>
+                    <span id="typed-text" class="text-indigo-400 font-semibold underline underline-offset-8 decoration-purple-500"></span>
+                    <span class="animate-pulse text-indigo-400">|</span>
+                </div>
+
+                <p class="mt-6 text-base sm:text-lg text-slate-400 dark:text-slate-400 light:text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    Modern web teknolojileri, yazılım geliştirme ve dijital deneyimler tasarlama konusunda tutkulu bir geliştiriciyim. Kod yazmayı ve yenilikçi fikirleri gerçeğe dönüştürmeyi seviyorum.
+                </p>
+
+                <!-- Hero Buttons -->
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5">
+                        <i class="fa-solid fa-code mr-2"></i> Projelerimi İncele
+                    </a>
+                    <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold glass-card hover:bg-slate-800/50 dark:hover:bg-slate-800/50 light:hover:bg-slate-200 transition-all border border-slate-700/50">
+                        <i class="fa-regular fa-user mr-2"></i> Daha Fazla Bilgi
+                    </a>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="mt-12 flex items-center justify-center space-x-6 text-slate-400">
+                    <a href="https://github.com/BoraKaya60" target="_blank" aria-label="GitHub Profilim" class="hover:text-indigo-400 text-2xl transition-transform hover:scale-125">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="#" aria-label="LinkedIn Profilim" class="hover:text-indigo-400 text-2xl transition-transform hover:scale-125">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                    <a href="#" aria-label="Twitter Profilim" class="hover:text-indigo-400 text-2xl transition-transform hover:scale-125">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                    <a href="mailto:borakaya60@example.com" aria-label="E-Posta Gönder" class="hover:text-indigo-400 text-2xl transition-transform hover:scale-125">
+                        <i class="fa-regular fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">Keşfet</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">Hakkımda</p>
+                <div class="w-16 h-1 bg-indigo-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Avatar Visual Card -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-3xl p-2 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 shadow-2xl animate-float">
+                        <div class="w-full h-full bg-slate-900 rounded-[22px] flex flex-col items-center justify-center p-6 text-center border border-slate-800">
+                            <div class="w-24 h-24 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-4xl mb-4 border border-indigo-500/30">
+                                <i class="fa-solid fa-user-astronaut"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Bora Kaya</h3>
+                            <p class="text-sm text-indigo-400 font-mono mt-1">@BoraKaya60</p>
+                            <span class="mt-4 px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                                Full-Stack Öğrenci & Geliştirici
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text & Highlights -->
+                <div class="lg:col-span-7 space-y-6">
+                    <h3 class="text-2xl font-bold">Teknolojiye Tutkulu, Çözüm Odaklı Kodlama</h3>
+                    <p class="text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed">
+                        Yazılım dünyasına olan ilgim, karmaşık problemleri basit ve estetik kod çözümleriyle aşma fikriyle başladı. Web geliştirme dünyasındaki güncel standartları yakından takip ediyor, hem ön yüz (Frontend) hem de arka yüz (Backend) alanlarında kendimi aralıksız geliştiriyorum.
+                    </p>
+                    
+                    <!-- Highlight Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+                            <i class="fa-solid fa-laptop-code text-2xl text-indigo-400 mb-2"></i>
+                            <h4 class="font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800">Web Development</h4>
+                            <p class="text-xs text-slate-400 mt-1">Responsive, modern & hızlı arayüzler.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+                            <i class="fa-solid fa-terminal text-2xl text-purple-400 mb-2"></i>
+                            <h4 class="font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800">Clean Code</h4>
+                            <p class="text-xs text-slate-400 mt-1">Okunabilir ve sürdürülebilir mimari.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl border border-slate-800">
+                            <i class="fa-solid fa-microchip text-2xl text-pink-400 mb-2"></i>
+                            <h4 class="font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800">Tech Enthusiast</h4>
+                            <p class="text-xs text-slate-400 mt-1">Yeni teknolojileri keşfetme merakı.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50 dark:bg-slate-900/50 light:bg-slate-100/80">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">Yetenekler</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold">Teknik Yetkinlikler</p>
+                    <div class="w-16 h-1 bg-indigo-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Progress Bar Item -->
+                    <div class="glass-card p-6 rounded-2xl space-y-2">
+                        <div class="flex justify-between font-semibold">
+                            <span>HTML5 / CSS3 & Tailwind CSS</span>
+                            <span class="text-indigo-400">90%</span>
+                        </div>
+                        <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full w-[90%] transition-all duration-1000"></div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar Item -->
+                    <div class="glass-card p-6 rounded-2xl space-y-2">
+                        <div class="flex justify-between font-semibold">
+                            <span>JavaScript (ES6+)</span>
+                            <span class="text-indigo-400">85%</span>
+                        </div>
+                        <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full w-[85%] transition-all duration-1000"></div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar Item -->
+                    <div class="glass-card p-6 rounded-2xl space-y-2">
+                        <div class="flex justify-between font-semibold">
+                            <span>React.js / Vue.js</span>
+                            <span class="text-indigo-400">75%</span>
+                        </div>
+                        <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full w-[75%] transition-all duration-1000"></div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar Item -->
+                    <div class="glass-card p-6 rounded-2xl space-y-2">
+                        <div class="flex justify-between font-semibold">
+                            <span>Node.js / Python</span>
+                            <span class="text-indigo-400">70%</span>
+                        </div>
+                        <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full w-[70%] transition-all duration-1000"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Tags Grid -->
+                <div class="mt-12 flex flex-wrap justify-center gap-3">
+                    <span class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700"><i class="fa-brands fa-git-alt text-orange-500 mr-2"></i>Git & GitHub</span>
+                    <span class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700"><i class="fa-brands fa-figma text-pink-400 mr-2"></i>Figma UI/UX</span>
+                    <span class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700"><i class="fa-solid fa-database text-blue-400 mr-2"></i>SQL & MongoDB</span>
+                    <span class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700"><i class="fa-solid fa-cloud text-indigo-400 mr-2"></i>REST APIs</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">Çalışmalarım</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">Öne Çıkan Projeler</p>
+                <div class="w-16 h-1 bg-indigo-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 flex items-center justify-center relative overflow-hidden">
+                            <i class="fa-solid fa-shop text-6xl text-indigo-400/50 group-hover:scale-110 transition-transform duration-300"></i>
+                            <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-3">
+                                <a href="#" class="p-3 bg-indigo-600 rounded-full text-white hover:bg-indigo-500"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                <a href="#" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700"><i class="fa-brands fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">E-Ticaret Platformu</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                                Modern sepet yönetimi, hızlı filtreleme ve duyarlı arayüze sahip full-stack e-ticaret uygulaması.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">React</span>
+                        <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Tailwind</span>
+                        <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Node.js</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-gradient-to-br from-purple-900/50 to-pink-900/50 flex items-center justify-center relative overflow-hidden">
+                            <i class="fa-solid fa-list-check text-6xl text-purple-400/50 group-hover:scale-110 transition-transform duration-300"></i>
+                            <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-3">
+                                <a href="#" class="p-3 bg-indigo-600 rounded-full text-white hover:bg-indigo-500"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                <a href="#" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700"><i class="fa-brands fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Task Management Dashboard</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                                Sürükle-bırak (Drag & Drop) desteği ve istatistik panelleri içeren kişisel verimlilik uygulaması.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-purple-500/10 text-purple-300 border border-purple-500/20">JavaScript</span>
+                        <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-purple-500/10 text-purple-300 border border-purple-500/20">HTML5/CSS3</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-gradient-to-br from-blue-900/50 to-indigo-900/50 flex items-center justify-center relative overflow-hidden">
+                            <i class="fa-solid fa-cloud-sun text-6xl text-blue-400/50 group-hover:scale-110 transition-transform duration-300"></i>
+                            <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-3">
+                                <a href="#" class="p-3 bg-indigo-600 rounded-full text-white hover:bg-indigo-500"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                <a href="#" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700"><i class="fa-brands fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-2">Hava Durumu Mobil Web App</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                                Canlı API entegrasyonu ile anlık hava durumu verileri ve 7 günlük tahmin sunan mobil öncelikli uygulama.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0 flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-blue-500/10 text-blue-300 border border-blue-500/20">REST API</span>
+                        <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-blue-500/10 text-blue-300 border border-blue-500/20">Tailwind</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50 dark:bg-slate-900/50 light:bg-slate-100/80">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2">İletişim</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold">Bana Ulaşın</p>
+                    <div class="w-16 h-1 bg-indigo-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="glass-card p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2">Adınız</label>
+                                <input type="text" id="name" required placeholder="Ahmet Yılmaz" class="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all text-slate-100 placeholder-slate-500">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">E-Posta Adresiniz</label>
+                                <input type="email" id="email" required placeholder="ornek@mail.com" class="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all text-slate-100 placeholder-slate-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium mb-2">Konu</label>
+                            <input type="text" id="subject" required placeholder="Proje Teklifi / Soru" class="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all text-slate-100 placeholder-slate-500">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2">Mesajınız</label>
+                            <textarea id="message" rows="4" required placeholder="Mesajınızı buraya yazabilirsiniz..." class="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all text-slate-100 placeholder-slate-500"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 shadow-lg shadow-indigo-500/30 transition-all hover:scale-[1.01]">
+                            <i class="fa-regular fa-paper-plane mr-2"></i> Mesaj Gönder
+                        </button>
+                    </form>
+
+                    <!-- Feedback message box -->
+                    <div id="form-status" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-800/80 text-center text-sm text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 Bora Kaya (BoraKaya60). Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Typing Animation Logic
+        const words = ["Web Developer", "Coder", "Tech Enthusiast", "Frontend Developer"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typedTextElement = document.getElementById("typed-text");
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                typedTextElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTextElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2000; // Pause at end of word
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+        // Initialize Typing Effect
+        document.addEventListener("DOMContentLoaded", typeEffect);
+
+        // Dark/Light Theme Switcher Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        themeToggleBtn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            document.documentElement.classList.toggle('light');
+
+            if (document.documentElement.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Contact Form Handling (No alert, inline feedback)
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            formStatus.classList.remove('hidden', 'bg-red-500/20', 'text-red-300');
+            formStatus.classList.add('bg-emerald-500/20', 'text-emerald-300', 'border', 'border-emerald-500/30');
+            formStatus.textContent = 'Teşekkürler Bora Kaya! Mesajınız başarıyla iletildi.';
+
+            contactForm.reset();
+
+            setTimeout(() => {
+                formStatus.classList.add('hidden');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
